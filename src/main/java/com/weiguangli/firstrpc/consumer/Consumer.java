@@ -10,8 +10,8 @@ public class Consumer {
     public static void main(String[] args) {
         RpcProxyHandler proxy = new RpcProxyHandler(new HelloWorld());
         IHelloWorld helloWorld = (IHelloWorld) Proxy.newProxyInstance(
-            IHelloWorld.class.getClassLoader(),
-            IHelloWorld.class.getInterfaces(),
+            HelloWorld.class.getClassLoader(),
+            HelloWorld.class.getInterfaces(),
             proxy
         );
         helloWorld.hi("小嘟");

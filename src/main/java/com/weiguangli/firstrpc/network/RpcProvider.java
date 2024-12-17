@@ -22,13 +22,13 @@ public class RpcProvider {
             OutputStream out = clientSocket.getOutputStream();
 
             byte[] receiveData = new byte[1024];
-            int byteRead;
-            while((byteRead = in.read(receiveData)) != -1) {
-                System.out.println("Received data from client: " + new String(receiveData, 0, byteRead));
+            int bytesRead;
+            while((bytesRead = in.read(receiveData)) != -1) {
+                System.out.println("Received data from client: " + new String(receiveData, 0, bytesRead));
 
                 //向客户端发送字节数组响应
                 out.write("Server received: ".getBytes());
-                out.write(receiveData, 0, byteRead);
+                out.write(receiveData, 0, bytesRead);
                 out.flush();
             }
 
