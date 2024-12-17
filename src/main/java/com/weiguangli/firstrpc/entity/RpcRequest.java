@@ -2,7 +2,7 @@ package com.weiguangli.firstrpc.entity;
 
 
 import java.io.Serializable;
-import java.util.UUID;
+
 import lombok.Builder;
 import lombok.Data;
 
