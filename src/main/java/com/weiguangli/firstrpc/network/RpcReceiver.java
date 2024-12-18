@@ -9,11 +9,11 @@ import java.lang.reflect.Method;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class RpcProvider {
+public class RpcReceiver {
 
     private Serializer serializer;
 
-    public RpcProvider(Serializer serializer) {
+    public RpcReceiver(Serializer serializer) {
         this.serializer = serializer;
     }
 
@@ -29,23 +29,19 @@ public class RpcProvider {
             System.out.println("New client connected: " + clientSocket.getInetAddress());
 
             // 获取输入输出流，用于通信
-            InputStream in = clientSocket.getInputStream();
-            OutputStream out = clientSocket.getOutputStream();
-            byte[] receiveData = new byte[4096];
-            int bytesRead = in.read(receiveData);
-            RpcRequest request = (RpcRequest) serializer.decode(receiveData, 0, bytesRead);
+            ObjectInputStream in = new ObjectInputStream(clientSocket.getInputStream());
+            ObjectOutputStream out = new ObjectOutputStream(clientSocket.getOutputStream());
+
+            RpcRequest request = (RpcRequest) in.readObject();
             Object result = handleRequest(request);
             RpcResponse response = RpcResponse
                     .builder()
                     .requestId(request.getRequestId())
                     .result(result)
                     .build();
-            byte[] sendData = serializer.encode(response);
 
-
-            //向客户端发送字节数组响应
-            out.write();
-            out.write(sendData);
+            //向客户端发送响应
+            out.writeObject(response);
             out.flush();
 
             // 关闭连接
