@@ -1,6 +1,7 @@
 package com.weiguangli.firstrpc.network;
 
 import com.weiguangli.firstrpc.entity.RpcMessage;
+import com.weiguangli.firstrpc.entity.RpcResponse;
 import com.weiguangli.firstrpc.serialize.Serializer;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,10 +33,10 @@ public class RpcSender {
             out.flush();
 
             // 接受服务端响应
-            byte[] receiveData = new byte[2048];
+            byte[] receiveData = new byte[22048];
             int bytesRead = in.read(receiveData);
-            result = serializer.decode(receiveData, 0, bytesRead);
-
+            RpcResponse response = (RpcResponse) serializer.decode(receiveData, 0, bytesRead);
+            result = response.getResult();
             // 关闭连接
             socket.close();
         } catch (IOException | ClassNotFoundException e) {

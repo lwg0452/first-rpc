@@ -9,6 +9,6 @@ public class HelloWorld implements IHelloWorld{
 
     @Override
     public String hi(String name) {
-        return null;
+        return "Hi, " + name;
     }
 }

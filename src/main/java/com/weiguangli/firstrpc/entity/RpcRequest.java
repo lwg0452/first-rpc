@@ -2,7 +2,6 @@ package com.weiguangli.firstrpc.entity;
 
 
 import java.io.Serializable;
-
 import lombok.Builder;
 import lombok.Data;
 
