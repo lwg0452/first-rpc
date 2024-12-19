@@ -1,4 +1,4 @@
-package com.weiguangli.firstrpc.provicerdemo;
+package com.weiguangli.firstrpc.providerdemo;
 
 import com.weiguangli.firstrpc.network.RpcReceiver;
 import com.weiguangli.firstrpc.serialize.Serializer;
