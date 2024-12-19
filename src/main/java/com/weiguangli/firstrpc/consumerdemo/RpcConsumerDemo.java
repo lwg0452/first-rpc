@@ -2,17 +2,18 @@ package com.weiguangli.firstrpc.consumerdemo;
 
 import com.weiguangli.firstrpc.helloapi.HelloWorld;
 import com.weiguangli.firstrpc.helloapi.IHelloWorld;
-import com.weiguangli.firstrpc.network.RpcSender;
+import com.weiguangli.firstrpc.network.socket.SocketRpcConnector;
 import com.weiguangli.firstrpc.proxy.RpcProxyHandler;
-import com.weiguangli.firstrpc.serialize.Serializer;
+import com.weiguangli.firstrpc.registry.zk.ZkServiceDiscover;
+import com.weiguangli.firstrpc.rpc.RpcInvoker;
 
 import java.lang.reflect.Proxy;
 
 public class RpcConsumerDemo {
 
     public static void main(String[] args) {
-        RpcSender sender = new RpcSender(new Serializer());
-        RpcProxyHandler proxy = new RpcProxyHandler(new HelloWorld(), sender, "localhost", 5555);
+        RpcInvoker rpcInvoker = new RpcInvoker(new SocketRpcConnector(), new ZkServiceDiscover());
+        RpcProxyHandler proxy = new RpcProxyHandler(new HelloWorld(), rpcInvoker);
         IHelloWorld helloWorldProxy = (IHelloWorld) Proxy.newProxyInstance(
             HelloWorld.class.getClassLoader(),
             HelloWorld.class.getInterfaces(),

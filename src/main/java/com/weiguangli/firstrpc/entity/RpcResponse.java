@@ -6,7 +6,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class RpcResponse implements Serializable, RpcMessage {
-    private String requestId;
+public class RpcResponse implements Serializable, IRpcMessage {
     private Object result;
 }
